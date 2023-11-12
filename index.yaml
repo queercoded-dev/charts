@@ -3,6 +3,21 @@ entries:
   webring:
   - apiVersion: v2
     appVersion: latest
+    created: "2023-11-12T12:08:50.246689606Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.11.*
+    description: Install Queer Coded Webring server
+    digest: 35d0953c0e01894ecbb890a1cf4243fdb97c31f9db152c900b9d8c8156943227
+    name: webring
+    type: application
+    urls:
+    - https://github.com/queercoded-dev/charts/releases/download/webring-0.1.4/webring-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-11-12T12:06:25.675068166Z"
     dependencies:
     - condition: postgresql.enabled
@@ -41,4 +56,4 @@ entries:
     urls:
     - https://github.com/queercoded-dev/charts/releases/download/webring-0.1.1/webring-0.1.1.tgz
     version: 0.1.1
-generated: "2023-11-12T12:06:25.675083166Z"
+generated: "2023-11-12T12:08:50.246708506Z"
