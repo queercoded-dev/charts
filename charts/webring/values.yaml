@@ -55,12 +55,24 @@ postgresql:
       userPasswordKey: password  
 
 env:
-  POSTGRES_PASSWORD: webring
+  POSTGRES_PASSWORD:
+    # value: webring
+    valueFrom:
+      secretKeyRef:
+        name: webring-postgresql
+        key: password
+
+  WEBRING_API_TOKEN:
+    # value: ADMIN_TOKEN_CHANGE_ME
+    valueFrom:
+      secretKeyRef:
+        name: webring-api-token
+        key: api-token
+
   POSTGRES_USER: webring
   POSTGRES_DB: webring
   POSTGRES_HOST: postgres-service
   POSTGRES_PORT: 5432
-  WEBRING_API_TOKEN: ADMIN_TOKEN_CHANGE_ME
   WEBRING_HOST: localhost
   WEBRING_PATH: /
   WEBRING_HTTP_PORT: 8080
