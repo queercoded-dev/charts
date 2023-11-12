@@ -28,46 +28,26 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-api
+        - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- include "webring.envVars" . | nindent 10 }}
           ports:
-            - name: http-api
+            - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: http-api
+              port: http
           readinessProbe:
             httpGet:
               path: /
-              port: http-api
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        - name: {{ .Chart.Name }}-frontend
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.frontend_image.repository }}:{{ .Values.frontend_image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.frontend_image.pullPolicy }}
-          {{- include "webring.envVars" . | nindent 10 }}
-          ports:
-            - name: http-frontend
-              containerPort: {{ .Values.frontend_service.port }}
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http-frontend
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http-frontend
-          resources:
-            {{- toYaml .Values.frontend_resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
