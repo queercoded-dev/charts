@@ -40,21 +40,25 @@ service:
   type: ClusterIP
   port: 80
 
-postgres:
-  env:
-    POSTGRES_PASSWORD: webring
-    POSTGRES_USER: webring
-    POSTGRES_DB: webring
-  persistence:
-    enabled: false
-    size: 4Gi
-    accessMode: ReadWriteOnce
+postgresql:
+  enabled: true
+  primary:
+    persistence:
+      enabled: false
+      size: 4Gi
+      accessMode: ReadWriteOnce
+  auth:
+    database: webring
+    username: webring
+    existingSecret: webring-postgresql
+    secretKeys:
+      userPasswordKey: password  
 
 env:
   POSTGRES_PASSWORD: webring
   POSTGRES_USER: webring
   POSTGRES_DB: webring
-  POSTGRES_HOST: postgres-postgres
+  POSTGRES_HOST: postgres-service
   POSTGRES_PORT: 5432
   WEBRING_API_TOKEN: ADMIN_TOKEN_CHANGE_ME
   WEBRING_HOST: localhost
